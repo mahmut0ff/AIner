@@ -1,0 +1,22 @@
+[build]
+  command = "echo 'No build step'"
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["firebase-admin"]
+
+# Scheduled reminders every 30 minutes
+[functions."reminders"]
+  schedule = "*/30 * * * *"
+
+[[redirects]]
+  from = "/webhook"
+  to = "/.netlify/functions/webhook"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
